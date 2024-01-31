@@ -24,11 +24,7 @@ class ResponseServiceProvider extends ServiceProvider
         Response::macro("api_ok",function($message="",$data=[],$status_code=200){
             $response = [
                 "success" => true,
-                "message" =>$response = [
-                    $success = "false",
-                    $message = $message,
-                    $data=$data,
-                ],
+                "message" => $message,
                 "data"=>$data,
             ];
             return response()->json($response,$status_code);
