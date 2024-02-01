@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 // apis controller
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BookController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,11 @@ Route::controller(CategoryController::class)->group(function(){
     Route::post("/categories","store");
     Route::patch("/categories/{id_category}","update");
     Route::delete("/categories/{id_category}","destroy");
+});
 
-
+Route::controller(BookController::class)->group(function(){
+    Route::get("/books","index");
+    Route::post("/books","store")->name("book.store");
+    Route::patch("/books/{id_book}","update")->name("book.update");
+    Route::delete("/books/{id_book}","destroy");
 });
