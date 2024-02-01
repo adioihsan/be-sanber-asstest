@@ -28,6 +28,7 @@ Route::controller(CategoryController::class)->group(function(){
     Route::post("/categories","store");
     Route::patch("/categories/{id_category}","update");
     Route::delete("/categories/{id_category}","destroy");
+    Route::get("/categories/{id_category}/books","getBooksByCategory");
 });
 
 Route::controller(BookController::class)->group(function(){

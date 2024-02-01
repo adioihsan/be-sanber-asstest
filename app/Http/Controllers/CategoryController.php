@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Book;
+use App\Http\Resources\BookResource;
 use App\Http\Resources\CategoryResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -35,6 +37,12 @@ class CategoryController extends Controller
         $category = $this->getCategoryById($id_category);
         $category->delete();
        return response()->api_ok("Category deleted successfully",[]);
+    }
+
+    public function getBooksByCategory(string $id_category){
+        $books = Book::where("category_id",$id_category)->paginate(18);
+        $books_coletion = BookResource::collection($books)->response()->getData(true);
+        return response()->api_ok("Books with category id:".$id_category,$books_coletion);
     }
 
     private function getCategoryById(string $id_category){
