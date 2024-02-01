@@ -25,7 +25,7 @@ class CategoryController extends Controller
     }
 
     public function update(CategoryRequest $request,string $id_category){
-        $category = Category::getCategoryById($id_category);
+        $category = $this->getCategoryById($id_category);
         $category->update($request->validated());
         $category = (new CategoryResource($category))->response()->getData(true);
         return response()->api_ok("Category updated successfully",$category,201);
