@@ -27,7 +27,8 @@ class CategoryRequest extends FormRequest
             'name' => 'required|max:255'
         ];
     }
-        public function failedValidation(Validator $validator)
+    
+    public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->api_fail("validation errors",$validator->errors(),422));
     }

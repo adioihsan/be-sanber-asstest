@@ -20,13 +20,13 @@ class CategoryController extends Controller
     }
     
     public function store(CategoryRequest $request){
-        Category::create($request->all());
+        Category::create($request->validated());
         return response()->api_ok("Category created successesfully");
     }
 
     public function update(CategoryRequest $request,string $id_category){
-        $category = Category::find($id_category);
-        $category->update($request->all());
+        $category = Category::getCategoryById($id_category);
+        $category->update($request->validated());
         $category = (new CategoryResource($category))->response()->getData(true);
         return response()->api_ok("Category updated successfully",$category,201);
     }
