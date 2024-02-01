@@ -47,6 +47,10 @@ class BookRequest extends FormRequest
             'category_id'=>'sometimes|numeric|exists:categories,id',
         ];
 
+        // if($this->routeIs('book.index') || $this->routeIs("category.books")){
+
+        // }
+
     }
 
     public function failedValidation(Validator $validator)
