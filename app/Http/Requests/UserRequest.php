@@ -24,7 +24,7 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        if($this->routeIs("auth. register"))
+        if($this->routeIs("auth.register"))
         return [
             "name"=>"required|min:5|max:20",
             "email"=>"required|email|unique:users,email",
