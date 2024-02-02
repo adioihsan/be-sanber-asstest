@@ -8,7 +8,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\FilterBookController;
 
-
+// auth controller
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +25,10 @@ use App\Http\Controllers\FilterBookController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post("/auth/register",[RegisterController::class,"register"])->name("auth.register");
+Route::post("/auth/login",[LoginController::class,"login"])->name("auth.login");
+
 
 Route::controller(CategoryController::class)->group(function(){
     Route::get("/categories","index");
