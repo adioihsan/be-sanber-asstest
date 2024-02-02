@@ -13,6 +13,7 @@ class BookService
         if($book) return $book;
         throw new ModelNotFoundException("Cant find book with id : ".$id_book);
     }
+
     public function filter(Request $request){
         $queries = $request->query();
         $books = Book::query();
@@ -20,7 +21,7 @@ class BookService
             $books->where('title','LIKE',"%{$request->query('title')}%");
         if($request->has('minYear') || $request->has('maxYear')){
             $minYear = $request->query('minYear') ?? 1980;
-            $maxYear = $request->query('maxYear') ?? 2021;
+            $maxYear = $request->query('maxYear') ?? 9999;
             $books->whereBetween('release_year',[$minYear,$maxYear]);
         }
         if($request->has('minPage') || $request->has('maxPage')){
@@ -28,10 +29,14 @@ class BookService
             $maxPage = $request->query('maxPage') ?? 99999;
             $books->whereBetween('total_page',[$minPage,$maxPage]);
         }
+        if($request->has('id_category')){
+            $books->where("category_id",$request->query("id_category"));
+        }
         if($request->has('sortByTitle')){
             $sort = $request->query('sortBy')  == "asc" ?  "asc" : "desc";
             $books->orderBy('title',$sort);
         }
+    
         return $books->paginate(18);
     }
 }

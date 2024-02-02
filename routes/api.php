@@ -29,11 +29,11 @@ Route::controller(CategoryController::class)->group(function(){
     Route::post("/categories","store");
     Route::patch("/categories/{id_category}","update");
     Route::delete("/categories/{id_category}","destroy");
-    Route::get("/categories/{id_category}/books","getBooksByCategory");
+    Route::get("/categories/{id_category}/books","getBooksByCategory")->name("category.books");
 });
 
 Route::controller(BookController::class)->group(function(){
-    Route::get("/books","index");
+    Route::get("/books","index")->name("book.index");
     Route::post("/books","store")->name("book.store");
     Route::patch("/books/{id_book}","update")->name("book.update");
     Route::delete("/books/{id_book}","destroy");
