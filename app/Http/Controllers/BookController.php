@@ -33,6 +33,7 @@ class BookController extends Controller
     public function update(BookRequest $request,string $id_book){
         $attributes = $request->validated();
         if($request->validated("total_page")){
+            $thickness = $this->bookService->pageToThickness($request->validated("total_page"));
             $attributes = array_merge($request->validated(),["thickness"=>$thickness]);
         }
         $book = $this->bookService->getById($id_book);
