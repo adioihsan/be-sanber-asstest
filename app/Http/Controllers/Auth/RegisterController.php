@@ -11,6 +11,6 @@ class RegisterController extends Controller
 {
     public function register(UserRequest $request){
         $user = User::create($request->validated());
-        return response()->api_ok("Registration success",$user);
+        return response()->api_ok("Registration success",[$user]);
     }
 }
