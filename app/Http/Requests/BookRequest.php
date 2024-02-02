@@ -47,33 +47,11 @@ class BookRequest extends FormRequest
             'category_id'=>'sometimes|numeric|exists:categories,id',
         ];
 
-        // if($this->routeIs('book.index') || $this->routeIs("category.books")){
-
-        // }
-
     }
-
+    
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->api_fail("validation errors",$validator->errors(),422));
     }
 
-    public function validatedBook():array{
-        if($this->validated("total_page")){
-            $thickness =   $this->convertToThickness($this->validated("total_page"));
-            $validated = array_merge($this->validated(),["thickness"=>$thickness]);
-        }
-        return $this->validated();
-    }
-
-    private function convertToThickness(int $total_page){
-        if($total_page <= 100 ){
-            return "tipis";
-        }
-        else if($total_page > 100 && $total_page <=200 ){
-            return "sedang";
-        }else{
-            return "tebal";
-        }
-    }
 }

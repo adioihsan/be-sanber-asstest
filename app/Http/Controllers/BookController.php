@@ -24,13 +24,19 @@ class BookController extends Controller
     }
 
     public function store(BookRequest $request){
-        $book = Book::create($request->validatedBook());
+        $thickness = $this->bookService->pageToThickness($request->validated("total_page"));
+        $attributes = array_merge($request->validated(),["thickness"=>$thickness]);
+        $book = Book::create($attributes);
         return response()->api_ok("Book created successfully",[$book],201);
     }
 
     public function update(BookRequest $request,string $id_book){
+        $attributes = $request->validated();
+        if($request->validated("total_page")){
+            $attributes = array_merge($request->validated(),["thickness"=>$thickness]);
+        }
         $book = $this->bookService->getById($id_book);
-        $book->update($request->validatedBook());
+        $book->update($attributes);
         $book = (new BookResource($book))->response()->getData(true);
         return response()->api_ok("Book updated successfully",$book,201);
     }

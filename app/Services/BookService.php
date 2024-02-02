@@ -14,6 +14,17 @@ class BookService
         throw new ModelNotFoundException("Cant find book with id : ".$id_book);
     }
 
+    public function pageToThickness(int $total_page){
+        if($total_page <= 100 ){
+            return "tipis";
+        }
+        else if($total_page > 100 && $total_page <=200 ){
+            return "sedang";
+        }else{
+            return "tebal";
+        }
+    }
+
     public function filter(Request $request){
         $queries = $request->query();
         $books = Book::query();
