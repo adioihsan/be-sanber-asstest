@@ -28,8 +28,10 @@ class BookService
     public function filter(Request $request){
         $queries = $request->query();
         $books = Book::query();
-        if($request->has('title'))
-            $books->where('title','LIKE',"%{$request->query('title')}%");
+        if($request->has('title')){
+            $title = strtolower(trim($request->query('title')));
+            $books->whereRaw('LOWER(title) LIKE ? ',[$title.'%']);
+        }
         if($request->has('minYear') || $request->has('maxYear')){
             $minYear = $request->query('minYear') ?? 1980;
             $maxYear = $request->query('maxYear') ?? 9999;
