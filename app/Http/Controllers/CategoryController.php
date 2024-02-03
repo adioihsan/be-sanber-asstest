@@ -16,7 +16,7 @@ class CategoryController extends Controller
 {
 
     public function index(){
-            $categories = Category::paginate(18);
+            $categories = Category::paginate(9);
             $categories_collection = CategoryResource::collection($categories) ->response()->getData(true);
             return response()->api_ok("categories",$categories_collection);
     }

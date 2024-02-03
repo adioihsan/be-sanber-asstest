@@ -6,6 +6,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Auth\AuthenticationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -44,8 +45,11 @@ class Handler extends ExceptionHandler
                 $message = $exception->getMessage();
                 return response()->api_fail($message,[],401);
             }
-            dd($exception);
-            return response()->api_fail();
+            if($exception instanceof HttpException){
+                $message = $exception->getMessage();
+                return response()->api_fail($message,[],401);
+            }
+            return response()->api_fail("Server Error!",[],401);
         });
         
         $this->reportable(function (Throwable $e) {
