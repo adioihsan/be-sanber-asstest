@@ -23,6 +23,13 @@ class BookController extends Controller
         return response()->api_ok("Books",$books_collection);
     }
 
+    public function show(string $id_book){
+        $book = $this->bookService->getById($id_book);
+        $book_res = BookResource::make($book)->response()->getData();
+
+        return response()->api_ok("Books",[$book_res]);
+    }
+
     public function store(BookRequest $request){
         $thickness = $this->bookService->pageToThickness($request->validated("total_page"));
         $attributes = array_merge($request->validated(),["thickness"=>$thickness]);

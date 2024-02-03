@@ -50,5 +50,8 @@ Route::name('book.')->prefix("books")
         Route::patch("/{id_book}","update")->name("update");
         Route::delete("/{id_book}","destroy");
     });
+
+    // additional api for FE requirement
+    Route::get("/{id_book}","show");
 });
 

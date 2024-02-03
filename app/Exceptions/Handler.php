@@ -49,7 +49,8 @@ class Handler extends ExceptionHandler
                 $message = $exception->getMessage();
                 return response()->api_fail($message,[],401);
             }
-            return response()->api_fail("Server Error!",[],401);
+            dd($exception);
+            return response()->api_fail("Server Error!",[],500);
         });
         
         $this->reportable(function (Throwable $e) {
