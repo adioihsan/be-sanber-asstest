@@ -24,6 +24,7 @@ class BookResource extends JsonResource
             'total_page'=>$this->total_page,
             'thickness'=>$this->thickness,
             'category_id'=>$this->category_id,
+            'category_name'=>$this->Category->name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
