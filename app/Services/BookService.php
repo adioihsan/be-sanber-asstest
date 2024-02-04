@@ -47,7 +47,6 @@ class BookService
             $sort = $request->query('sortBy')  == "asc" ?  "asc" : "desc";
             $books->orderBy('title',$sort);
         }
-    
-        return $books->paginate(18);
+        return $books->paginate(9);
     }
 }
